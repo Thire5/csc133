@@ -3,21 +3,17 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.*;
-public class Main
-{
+public class Main {
     static char[][] board = new char[3][3];
-    public static void PrintBoard(char[][] board)
-    {
-        for(int i = 0; i < 3; i++)
-        {
+    public static void PrintBoard(char[][] board) {
+        for(int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(board[i][j] + " ");
             }
             System.out.println();
         }
     }
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Arrays.fill(board, "-");
     }
     }
