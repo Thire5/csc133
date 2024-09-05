@@ -2,42 +2,51 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.*;
 public class Main {
     static char[][] board = new char[3][3];
+    private static char defaultSpace = '-';
+    private static char played = 'P';
+
     public static void printBoard(char[][] board) {
-        for(int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " ");
+        for(int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                System.out.print(board[row][col] + " ");
             }
             System.out.println();
         }
     }
     public static boolean checkContinue(char[][] board) {
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                if(board[i][j] == '-')
-                    return false;
+        for(int row = 0; row < 3; row++) {
+            for(int col = 0; col < 3; col++) {
+                if(board[row][col] == defaultSpace)
+                    return true;
             }
         }
+        return false;
     }
     public static void main(String[] args) {
-        Arrays.fill(board, "-");
-        boolean continue = true;
+        for(int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                board[row][col] = defaultSpace;
+            }
+        }
         Scanner scanner = new Scanner(System.in);
-        while(continue){
+        boolean cont = checkContinue(board);
+        while(cont) {
             printBoard(board);
             System.out.print("Enter a row and a column, from 0 to 2, or press q to quit: ");
             if (scanner.hasNextInt() && scanner.nextInt() <= 2 && scanner.nextInt() >= 0) {
                 int row = scanner.nextInt();
                 if (scanner.hasNextInt() && scanner.nextInt() <= 2 && scanner.nextInt() >= 0) {
                     int col = scanner.nextInt();
-                    board[row][col] = 'X';
+                    board[row][col] = played;
+                    return;
                 }
             }
-            continue = checkContinue(board);
-            else if{boolean b = scanner.next() == "q"} {
-                continue = false;
+            cont = checkContinue(board);
+            if(scanner.next() == "q") {
+                cont = false;
+                System.out.println("thanks for playing!");
                 return;
             }
             else
@@ -45,4 +54,3 @@ public class Main {
         }
     }
     }
-}
