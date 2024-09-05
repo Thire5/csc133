@@ -1,15 +1,15 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+package mechanicsBE;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import java.util.Objects;
 import java.util.Scanner;
-public class Main {
+public class slTTTBoard {
     static char[][] board = new char[3][3];
     //character in board before being played
     public final static char defaultSpace = '-';
     //character to mark played spaces
     public final static char played = 'P';
     //simple loop to print all board spaces in a grid
-    public static void printBoard(char[][] board) {
+    public static void printBoard() {
         for(int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 System.out.print(board[row][col] + " ");
@@ -27,7 +27,7 @@ public class Main {
         }
         return false;
     }
-    public static void main(String[] args) {
+    public static void play() {
         //fills the board with the default character
         for(int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -38,7 +38,7 @@ public class Main {
         boolean cont = checkContinue(board);
         //loop repeatedly takes input, fills appropriate board space, and prints board
         while(cont) {
-            printBoard(board);
+            printBoard();
             if(!checkContinue(board)) {
                 cont = checkContinue(board);
                 System.out.println("Congratulations! You have won the game!");
