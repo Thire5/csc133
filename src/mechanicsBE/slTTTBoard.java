@@ -9,9 +9,16 @@ public class slTTTBoard {
     //character to mark played spaces
     public final static char played = 'P';
     //simple loop to print all board spaces in a grid
+    public final static int rowColMin = 0;
+    public final static int rowColMax = 3;
+    public final static int GAME_INCOMPLETE = 0;
+    public final static int GAME_QUIT = 1;
+    public final static int GAME_PLAYER = 2;
+    public final static int GAME_MACHINE = 3;
+    public final static int GAME_DRAW = 4;
     public static void printBoard() {
-        for(int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for(int row = rowColMin; row < rowColMax; row++) {
+            for (int col = rowColMin; col < rowColMax; col++) {
                 System.out.print(board[row][col] + " ");
             }
             System.out.println();
@@ -19,38 +26,37 @@ public class slTTTBoard {
     }
     //checks if all spaces are filled
     public static boolean checkContinue(char[][] board) {
-        for(int row = 0; row < 3; row++) {
-            for(int col = 0; col < 3; col++) {
+        for(int row = rowColMin; row < rowColMax; row++) {
+            for(int col = rowColMin; col < rowColMax; col++) {
                 if(board[row][col] == defaultSpace)
                     return true;
             }
         }
         return false;
     }
-    public static void play() {
-        //fills the board with the default character
-        for(int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+    public static int checkStatus(char[][] board) {
+        if(!checkContinue(board))
+            return GAME_DRAW;
+    }
+    public static void resetBoard() {
+        for(int row = rowColMin; row < rowColMax; row++) {
+            for (int col = rowColMin; col < rowColMax; col++) {
                 board[row][col] = defaultSpace;
             }
         }
+    }
+    public static int play() {
         Scanner scanner = new Scanner(System.in);
-        boolean cont = checkContinue(board);
+        int gameStatus = checkStatus(board);
         //loop repeatedly takes input, fills appropriate board space, and prints board
-        while(cont) {
-            printBoard();
-            if(!checkContinue(board)) {
-                cont = checkContinue(board);
-                System.out.println("Congratulations! You have won the game!");
-                continue;
-            }
+        while(checkStatus(board) == GAME_INCOMPLETE) {
             System.out.print("Enter a row and a column, from 0 to 2, or press q to quit: ");
             //note that input must be separated by a space
             if (scanner.hasNextInt()) {
                 int row = scanner.nextInt();
                 if (scanner.hasNextInt()) {
                     int col = scanner.nextInt();
-                    if (row < 0 || row >= 3 || col < 0 || col >= 3) {
+                    if (row < rowColMin || row >= rowColMax || col < rowColMin || col >= rowColMax) {
                         System.out.println("Invalid row or column");
                         continue;
                     }
@@ -62,12 +68,12 @@ public class slTTTBoard {
                     continue;
                 }
             }
-            cont = checkContinue(board);
             //option to quit at any time
             if(Objects.equals(scanner.next(), "q")) {
-                cont = false;
-                System.out.println("thanks for playing!");
+                gameStatus = 1;
+                return gameStatus;
             }
+            gameStatus = checkStatus(board);
         }
     }
     }
