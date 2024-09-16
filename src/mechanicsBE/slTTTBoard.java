@@ -8,7 +8,7 @@ public class slTTTBoard {
     public final static char defaultSpace = '-';
     //character to mark played spaces
     public final static char played = 'P';
-    //simple loop to print all board spaces in a grid
+    public final static char machine = 'M';
     public final static int rowColMin = 0;
     public final static int rowColMax = 3;
     public final static int GAME_INCOMPLETE = 0;
@@ -25,7 +25,7 @@ public class slTTTBoard {
         }
     }
     //checks if all spaces are filled
-    public static boolean checkContinue(char[][] board) {
+    public static boolean checkDraw(char[][] board) {
         for(int row = rowColMin; row < rowColMax; row++) {
             for(int col = rowColMin; col < rowColMax; col++) {
                 if(board[row][col] == defaultSpace)
@@ -34,9 +34,63 @@ public class slTTTBoard {
         }
         return false;
     }
+    public static boolean checkRowWinPlayer(char[][] board) {
+        for(int row = rowColMin; row < rowColMax; row++) {
+            if(board[row][0] == played && board[row][1] == played && board[row][2] == played)
+                return true;
+        }
+        return false;
+    }
+    public static boolean checkRowWinMachine(char[][] board) {
+        for(int row = rowColMin; row < rowColMax; row++) {
+            if(board[row][0] == machine && board[row][1] == machine && board[row][2] == machine)
+                return true;
+        }
+        return false;
+    }
+    public static boolean checkColWinPlayer(char[][] board) {
+        for(int col = rowColMin; col < rowColMax; col++) {
+            if(board[0][col] == played && board[1][col] == played && board[2][col] == played)
+                return true;
+        }
+        return false;
+    }
+    public static boolean checkColWinMachine(char[][] board) {
+        for(int col = rowColMin; col < rowColMax; col++) {
+            if(board[0][col] == machine && board[1][col] == machine && board[2][col] == machine)
+                return true;
+        }
+        return false;
+    }
+    public static boolean checkLeadingWinPlayer(char[][] board) {
+        if(board[0][0] == played && board[1][1] == played && board[2][2] == played)
+            return true;
+        return false;
+    }
+    public static boolean checkLeadingWinMachine(char[][] board) {
+        if(board[0][0] == machine && board[1][1] == machine && board[2][2] == machine)
+            return true;
+        return false;
+    }
+    public static boolean checkTrailingWinPlayer(char[][] board) {
+        if (board[2][0] == played && board[1][1] == played && board[0][2] == played)
+            return true;
+        return false;
+    }
+    public static boolean checkTrailingWinMachine(char[][] board) {
+        if (board[2][0] == machine && board[1][1] == machine && board[0][2] == machine)
+            return true;
+        return false;
+    }
     public static int checkStatus(char[][] board) {
-        if(!checkContinue(board))
+        if(!checkDraw(board))
             return GAME_DRAW;
+        if(checkLeadingWinPlayer(board) || checkTrailingWinPlayer(board) || checkRowWinPlayer(board) || checkColWinPlayer(board))
+            return GAME_PLAYER;
+        if(checkLeadingWinMachine(board) || checkTrailingWinMachine(board) || checkRowWinMachine(board) || checkColWinMachine(board))
+            return GAME_MACHINE;
+        else
+            return GAME_INCOMPLETE;
     }
     public static void resetBoard() {
         for(int row = rowColMin; row < rowColMax; row++) {
@@ -74,6 +128,8 @@ public class slTTTBoard {
                 return gameStatus;
             }
             gameStatus = checkStatus(board);
+            //machinePlay(board)
         }
+        return gameStatus;
     }
     }

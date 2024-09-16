@@ -15,7 +15,8 @@ public class gameFE {
             return true;
         else{
             System.out.println("Please enter a valid choice");
-            promptToStart();
+            Boolean tryAgain = promptToStart();
+            return tryAgain;
         }
     }
 
