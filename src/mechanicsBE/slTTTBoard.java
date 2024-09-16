@@ -2,6 +2,7 @@ package mechanicsBE;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> o
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Random;
 public class slTTTBoard {
     static char[][] board = new char[3][3];
     //character in board before being played
@@ -16,6 +17,7 @@ public class slTTTBoard {
     public final static int GAME_PLAYER = 2;
     public final static int GAME_MACHINE = 3;
     public final static int GAME_DRAW = 4;
+
     public static void printBoard() {
         for(int row = rowColMin; row < rowColMax; row++) {
             for (int col = rowColMin; col < rowColMax; col++) {
@@ -99,6 +101,13 @@ public class slTTTBoard {
             }
         }
     }
+    //not very scalable, but in current build will only play first
+    public static void playRandom() {
+        Random rand = new Random();
+        int randomRow = rand.nextInt(3);
+        int randomCol = rand.nextInt(3);
+        board[randomRow][randomCol] = machine;
+    }
     public static int play() {
         Scanner scanner = new Scanner(System.in);
         int gameStatus = checkStatus(board);
@@ -124,7 +133,7 @@ public class slTTTBoard {
             }
             //option to quit at any time
             if(Objects.equals(scanner.next(), "q")) {
-                gameStatus = 1;
+                gameStatus = GAME_QUIT;
                 return gameStatus;
             }
             gameStatus = checkStatus(board);

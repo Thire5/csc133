@@ -13,11 +13,9 @@ public class gameFE {
             return false;
         if(Objects.equals(scanner.next(), "n")
             return true;
-        else{
-            System.out.println("Please enter a valid choice");
-            Boolean tryAgain = promptToStart();
-            return tryAgain;
-        }
+        System.out.println("Please enter a valid choice");
+        Boolean tryAgain = promptToStart();
+        return tryAgain;
     }
 
     public void print_exit_message(int gameStatus) {
