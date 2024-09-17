@@ -17,6 +17,7 @@ public class slTTTBoard {
     public final static int GAME_PLAYER = 2;
     public final static int GAME_MACHINE = 3;
     public final static int GAME_DRAW = 4;
+    public static int gameStatus = GAME_INCOMPLETE;
 
     public static void printBoard() {
         for(int row = rowColMin; row < rowColMax; row++) {
@@ -75,12 +76,12 @@ public class slTTTBoard {
         return false;
     }
     public static boolean checkTrailingWinPlayer(char[][] board) {
-        if (board[2][0] == played && board[1][1] == played && board[0][2] == played)
+        if(board[2][0] == played && board[1][1] == played && board[0][2] == played)
             return true;
         return false;
     }
     public static boolean checkTrailingWinMachine(char[][] board) {
-        if (board[2][0] == machine && board[1][1] == machine && board[0][2] == machine)
+        if(board[2][0] == machine && board[1][1] == machine && board[0][2] == machine)
             return true;
         return false;
     }
@@ -110,7 +111,7 @@ public class slTTTBoard {
     }
     public static int play() {
         Scanner scanner = new Scanner(System.in);
-        int gameStatus = checkStatus(board);
+        gameStatus = checkStatus(board);
         //loop repeatedly takes input, fills appropriate board space, and prints board
         while(checkStatus(board) == GAME_INCOMPLETE) {
             System.out.print("Enter a row and a column, from 0 to 2, or press q to quit: ");
@@ -137,8 +138,262 @@ public class slTTTBoard {
                 return gameStatus;
             }
             gameStatus = checkStatus(board);
-            //machinePlay(board)
+            gameStatus = machinePlay(board);
         }
         return gameStatus;
     }
+    //simple strategy, coded very inconveniently
+    public static int machinePlay(char[][] board) {
+        //check all imminent win conditions for machine
+        if(board[0][0] == machine && board[0][1] == machine && board[0][2] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == machine && board[0][2] == machine && board[0][1] == defaultSpace) {
+            board[0][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == machine && board[0][1] == machine && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][0] == machine && board[1][1] == machine && board[1][2] == defaultSpace) {
+            board[1][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == machine && board[1][2] == machine && board[1][0] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][0] == machine && board[1][2] == machine && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == machine && board[2][1] == machine && board[2][2] == defaultSpace) {
+            board[2][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][1] == machine && board[2][2] == machine && board[2][0] == defaultSpace) {
+            board[2][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == machine && board[2][2] == machine && board[2][1] == defaultSpace) {
+            board[2][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == machine && board[1][0] == machine && board[2][0] == defaultSpace) {
+            board[2][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == machine && board[1][0] == machine && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == machine && board[0][0] == machine && board[1][0] == defaultSpace) {
+            board[1][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][1] == machine && board[1][1] == machine && board[2][1] == defaultSpace) {
+            board[2][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == machine && board[2][1] == machine && board[0][1] == defaultSpace) {
+            board[0][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][1] == machine && board[2][1] == machine && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == machine && board[1][2] == machine && board[2][2] == defaultSpace) {
+            board[2][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][2] == machine && board[2][2] == machine && board[0][2] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == machine && board[2][2] == machine && board[1][2] == defaultSpace) {
+            board[1][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == machine && board[1][1] == machine && board[2][2] == defaultSpace) {
+            board[2][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == machine && board[2][2] == machine && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == machine && board[2][2] == machine && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == machine && board[1][1] == machine && board[0][2] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == machine && board[0][2] == machine && board[2][0] == defaultSpace) {
+            board[2][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == machine && board[0][2] == machine && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        //check all imminent win conditions for player
+        if(board[0][0] == played && board[0][1] == played && board[0][2] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == played && board[0][2] == played && board[0][1] == defaultSpace) {
+            board[0][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == played && board[0][1] == played && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][0] == played && board[1][1] == played && board[1][2] == defaultSpace) {
+            board[1][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == played && board[1][2] == played && board[1][0] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][0] == played && board[1][2] == played && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == played && board[2][1] == played && board[2][2] == defaultSpace) {
+            board[2][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][1] == played && board[2][2] == played && board[2][0] == defaultSpace) {
+            board[2][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == played && board[2][2] == played && board[2][1] == defaultSpace) {
+            board[2][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == played && board[1][0] == played && board[2][0] == defaultSpace) {
+            board[2][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == played && board[1][0] == played && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == played && board[0][0] == played && board[1][0] == defaultSpace) {
+            board[1][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][1] == played && board[1][1] == played && board[2][1] == defaultSpace) {
+            board[2][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == played && board[2][1] == played && board[0][1] == defaultSpace) {
+            board[0][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][1] == played && board[2][1] == played && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == played && board[1][2] == played && board[2][2] == defaultSpace) {
+            board[2][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][2] == played && board[2][2] == played && board[0][2] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == played && board[2][2] == played && board[1][2] == defaultSpace) {
+            board[1][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == played && board[1][1] == played && board[2][2] == defaultSpace) {
+            board[2][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == played && board[2][2] == played && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][0] == played && board[2][2] == played && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == played && board[1][1] == played && board[0][2] == defaultSpace) {
+            board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][1] == played && board[0][2] == played && board[2][0] == defaultSpace) {
+            board[2][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == played && board[0][2] == played && board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        //now the actual strategy part
+        //first, claim middle spot if open
+        if(board[1][1] == defaultSpace) {
+            board[1][1] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        gameStatus = checkStatus(board);
+        return gameStatus;
     }
+}
