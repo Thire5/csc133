@@ -393,6 +393,69 @@ public class slTTTBoard {
             gameStatus = checkStatus(board);
             return gameStatus;
         }
+        //if middle is filled, claim most optimal corner
+        if(board[0][0] == defaultSpace && board[2][2] != machine && board[2][1] != machine && board[1][2] != machine) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][2] == defaultSpace && board[0][0] != machine && board[0][1] != machine && board[1][0] != machine) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == defaultSpace && board[0][2] != machine && board[0][1] != machine && board[1][2] != machine) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == defaultSpace && board[2][0] != machine && board[2][1] != machine && board[1][0] != machine) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        /* if none of those trigger, any corner space should do, initial checks will prevent loss after middle is filled */
+        if(board[0][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][2] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][0] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][2] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][0] == defaultSpace) {
+            board[1][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[0][1] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[2][1] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        if(board[1][2] == defaultSpace) {
+            board[0][0] = machine;
+            gameStatus = checkStatus(board);
+            return gameStatus;
+        }
+        /* serves as an out if somehow none of this triggers. shouldn't be possible */
         gameStatus = checkStatus(board);
         return gameStatus;
     }

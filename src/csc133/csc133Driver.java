@@ -1,8 +1,8 @@
 package csc133;
 import mechanicsBE.slTTTBoard;
 import static csc133.gameFE.*;
-import static csc133.spot.GAME_INCOMPLETE;
-import static csc133.spot.GAME_QUIT;
+import static mechanicsBE.slTTTBoard.GAME_INCOMPLETE;
+import static mechanicsBE.slTTTBoard.GAME_QUIT;
 public class csc133Driver {
     private final slTTTBoard my_board = new slTTTBoard();
     private final csc133.gameFE my_fe = new csc133.gameFE();
