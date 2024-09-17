@@ -9,16 +9,18 @@ public class slTTTBoard {
     public final static char defaultSpace = '-';
     //character to mark played spaces
     public final static char played = 'P';
+    //character to mark machine played spaces
     public final static char machine = 'M';
     public final static int rowColMin = 0;
     public final static int rowColMax = 3;
+    //ints for all possible game states
     public final static int GAME_INCOMPLETE = 0;
     public final static int GAME_QUIT = 1;
     public final static int GAME_PLAYER = 2;
     public final static int GAME_MACHINE = 3;
     public final static int GAME_DRAW = 4;
     public static int gameStatus = GAME_INCOMPLETE;
-
+    //prints board
     public static void printBoard() {
         for(int row = rowColMin; row < rowColMax; row++) {
             for (int col = rowColMin; col < rowColMax; col++) {
@@ -37,6 +39,7 @@ public class slTTTBoard {
         }
         return false;
     }
+    //checks for all possible player and machine three in a row
     public static boolean checkRowWinPlayer(char[][] board) {
         for(int row = rowColMin; row < rowColMax; row++) {
             if(board[row][0] == played && board[row][1] == played && board[row][2] == played)
