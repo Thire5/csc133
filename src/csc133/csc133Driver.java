@@ -21,6 +21,6 @@ public class csc133Driver {
             } // if (my_fe.promptToStart())
             game_status = my_board.play();
         } // while (...)
-        my_fe.promptToStart();
+        //my_fe.promptToStart();
     } // public static void startGame()
 } // public class csc133Driver
