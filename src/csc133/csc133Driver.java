@@ -10,6 +10,7 @@ public class csc133Driver {
         (new csc133Driver()).startGame();
     } // public static void main(String] args)
     private void startGame() {
+        my_board.resetBoard();
         my_board.printBoard();
         int game_status = GAME_INCOMPLETE;
         while (GAME_QUIT != game_status) {
@@ -21,6 +22,6 @@ public class csc133Driver {
             } // if (my_fe.promptToStart())
             game_status = my_board.play();
         } // while (...)
-        //my_fe.promptToStart();
+        my_fe.print_exit_message(game_status);
     } // public static void startGame()
 } // public class csc133Driver

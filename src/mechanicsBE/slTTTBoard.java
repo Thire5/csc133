@@ -1,6 +1,4 @@
-package mechanicsBE;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-import java.util.Objects;
+package mechanicsBE;
 import java.util.Scanner;
 import java.util.Random;
 public class slTTTBoard {
@@ -151,17 +149,6 @@ public class slTTTBoard {
                 System.out.println("Invalid input. Please enter valid integers.");
                 continue;
             }
-                /*int row = scanner.nextInt();
-                int col = scanner.nextInt();
-                if (row < rowColMin || row >= rowColMax || col < rowColMin || col >= rowColMax) {
-                    System.out.println("Invalid row or column");
-                    continue;
-                }
-                if (board[row][col] != defaultSpace) {
-                    System.out.println("That space is already taken");
-                    continue;
-                }
-                board[row][col] = played;*/
             printBoard();
             gameStatus = checkStatus(board);
             if(gameStatus == GAME_INCOMPLETE)
@@ -169,7 +156,7 @@ public class slTTTBoard {
         }
         return gameStatus;
     }
-    //simple strategy, coded very inconveniently
+    //determines the machine strategy
     public static int machinePlay(char[][] board) {
         //check all imminent win conditions for machine
         if(board[0][0] == machine && board[0][1] == machine && board[0][2] == defaultSpace) {
@@ -462,7 +449,32 @@ public class slTTTBoard {
             return gameStatus;
         }
         //now the actual strategy part
-        //first, claim middle spot if open
+        //first, block the opposite corner fork
+        if(board[0][0] == played && board[2][2] == played && board[0][1] == defaultSpace) {
+            board[0][1] = machine;
+            gameStatus = checkStatus(board);
+            printBoard();
+            return gameStatus;
+        }
+        if(board[0][0] == played && board[2][2] == played && board[1][0] == defaultSpace) {
+            board[1][0] = machine;
+            gameStatus = checkStatus(board);
+            printBoard();
+            return gameStatus;
+        }
+        if(board[0][2] == played && board[2][0] == played && board[1][2] == defaultSpace) {
+            board[1][2] = machine;
+            gameStatus = checkStatus(board);
+            printBoard();
+            return gameStatus;
+        }
+        if(board[0][2] == played && board[2][0] == played && board[2][1] == defaultSpace) {
+            board[2][1] = machine;
+            gameStatus = checkStatus(board);
+            printBoard();
+            return gameStatus;
+        }
+        //claim middle spot if open
         if(board[1][1] == defaultSpace) {
             board[1][1] = machine;
             gameStatus = checkStatus(board);
@@ -470,26 +482,26 @@ public class slTTTBoard {
             return gameStatus;
         }
         //if middle is filled, claim most optimal corner
-        if(board[0][0] == defaultSpace && board[2][2] != machine && board[2][1] != machine && board[1][2] != machine) {
-            board[0][0] = machine;
-            gameStatus = checkStatus(board);
-            printBoard();
-            return gameStatus;
-        }
-        if(board[2][2] == defaultSpace && board[0][0] != machine && board[0][1] != machine && board[1][0] != machine) {
+        if(board[0][0] == played && board[2][2] == defaultSpace) {
             board[2][2] = machine;
             gameStatus = checkStatus(board);
             printBoard();
             return gameStatus;
         }
-        if(board[2][0] == defaultSpace && board[0][2] != machine && board[0][1] != machine && board[1][2] != machine) {
+        if(board[0][2] == played && board[2][0] == defaultSpace) {
             board[2][0] = machine;
             gameStatus = checkStatus(board);
             printBoard();
             return gameStatus;
         }
-        if(board[0][2] == defaultSpace && board[2][0] != machine && board[2][1] != machine && board[1][0] != machine) {
+        if(board[2][0] == played && board[0][2] == defaultSpace) {
             board[0][2] = machine;
+            gameStatus = checkStatus(board);
+            printBoard();
+            return gameStatus;
+        }
+        if(board[2][2] == played && board[0][0] == defaultSpace) {
+            board[0][0] = machine;
             gameStatus = checkStatus(board);
             printBoard();
             return gameStatus;

@@ -15,19 +15,14 @@ public class gameFE {
                 return true;
             case "y":
                 return false;
-            case "q":
-                gameStatus = GAME_QUIT;
-                return false;
         }
-        if(!startInput.equals("y") && !startInput.equals("n") && !startInput.equals("q")) {
+        if(!startInput.equals("y") && !startInput.equals("n")) {
             System.out.println("Please enter a valid choice");
-            Boolean tryAgain = promptToStart();
-            return tryAgain;
+            return promptToStart();
         }
-        scanner.close();
         return false;
     }
-
+    //messages based on game status. All but quit are followed by a new game
     public void print_exit_message(int gameStatus) {
         switch (gameStatus) {
             case slTTTBoard.GAME_QUIT:
